@@ -25,6 +25,6 @@ namespace YamlDocumentCreator.Models
         public string Host { get; set; }
 
         [Required]
-        public int Port { get; set; }
+        public string Port { get; set; }
     }
 }
