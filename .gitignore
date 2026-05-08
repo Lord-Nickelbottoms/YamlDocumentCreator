@@ -325,3 +325,5 @@ Temporary Items
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,aspnetcore,visualstudiocode
+.vscode/launch.json
+.vscode/tasks.json
