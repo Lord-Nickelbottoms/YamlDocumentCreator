@@ -1,11 +1,14 @@
 using Microsoft.EntityFrameworkCore;
+using YamlDocumentCreator.Services;
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("YamlDocumentDbContext") ?? throw new InvalidOperationException("Connection string 'YamlDocumentDbContext' not found.");
+var connectionString = builder.Configuration.GetConnectionString("AttachmentDbContext") ?? throw new InvalidOperationException("Connection string 'AttachmentDbContext' not found.");
 
-builder.Services.AddDbContext<YamlDocumentDbContext>(options => options.UseSqlite(connectionString));
+builder.Services.AddDbContext<AttachmentDbContext>(options => options.UseSqlite(connectionString));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IAttachmentService, AttachmentService>();
 
 var app = builder.Build();
 
