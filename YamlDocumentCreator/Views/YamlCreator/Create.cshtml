@@ -1,0 +1,65 @@
+@model YamlDocumentCreator.Models.YamlDocument
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input asp-for="Id" hidden />
+
+            <div class="form-group">
+                <h3>Identifier</h3>
+                <div class="form-group mb-4">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="Group" class="control-label"></label>
+                    <input asp-for="Group" class="form-control" />
+                    <span asp-validation-for="Group" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label asp-for="UserCanDelete" class="control-label"></label>
+                    <select asp-for="UserCanDelete" class="form-control form-select" asp-items="@ViewBag.YesNoList">
+                        <option value="">Select an option</option>
+                    </select>
+                    <span asp-validation-for="UserCanDelete" class="text-danger"></span>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="form-group">
+                <h3>Access SFTP</h3>
+                <div class="form-group mb-4">
+                    <label asp-for="AccessSftp.Host" class="control-label"></label>
+                    <input asp-for="AccessSftp.Host" class="form-control" />
+                    <span asp-validation-for="AccessSftp.Host" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-4">
+                    <label asp-for="AccessSftp.Port" class="control-label"></label>
+                    <input asp-for="AccessSftp.Port" class="form-control" />
+                    <span asp-validation-for="AccessSftp.Port" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group mb-4">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace YamlDocumentCreator.Models
 {
@@ -8,13 +9,13 @@ namespace YamlDocumentCreator.Models
         public string Name { get; set; }
 
         [Key, MaxLength(36)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [Required]
         public string Group { get; set; }
 
         [Required]
-        public bool UserCanDelete { get; set; }
+        public string UserCanDelete { get; set; }
 
         public AccessSftp AccessSftp { get; set; }
     }

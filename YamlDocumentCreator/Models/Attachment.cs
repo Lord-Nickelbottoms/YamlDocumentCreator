@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YamlDocumentCreator.Models
 {
-    public class Attachments
+    public class Attachment
     {
         [Key, MaxLength(36)]
         public string Id { get; set; } = Guid.NewGuid().ToString();

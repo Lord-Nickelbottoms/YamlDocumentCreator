@@ -1,0 +1,50 @@
+@using Microsoft.AspNetCore.Http.Extensions
+@model IEnumerable<YamlDocumentCreator.Models.Attachment>
+
+@{
+    ViewData["Title"] = "Index";
+    var returnUrlPath = Context.Request.GetEncodedPathAndQuery();
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UploadedDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.FileName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.FileType)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.UploadedDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" asp-return>Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id" asp-return>Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id" asp-return>Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
