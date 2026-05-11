@@ -92,37 +92,25 @@ public class YamlCreator : Controller
 
             using (StreamWriter outputFile = new StreamWriter(Path.Combine(filePath, $"{document.Name}.yml")))
             {
-                using (var stream = System.IO.File.OpenRead(Path.Combine(filePath, $"{document.Name}.yml")))
+                await outputFile.WriteAsync(yamlDocument);
+                await outputFile.FlushAsync();
+
+                using var stream = System.IO.File.OpenRead(Path.Combine(filePath, $"{document.Name}.yml"));
+
+                FormFile formFile = new FormFile(stream, 0, stream.Length, "file", $"{document.Name}.yml")
                 {
-                    if (stream.CanSeek)
-                    {
-                        Debug.Print($"\n\nLength of document is: ${stream.Length} bytes\n\n");
-                    }
+                    Headers = new HeaderDictionary(),
+                    ContentType = "application/x-yaml"
+                };
 
-                    AttachmentVM vm = new()
-                    {
-                        Id = document.Id,
-                        File = new FormFile(stream, 0, stream.Length, null, document.Name)
-                    };
+                AttachmentVM vm = new()
+                {
+                    Id = document.Id,
+                    File = formFile
+                };
 
-                    await outputFile.WriteAsync(yamlDocument);
-                    await outputFile.FlushAsync();
-
-                    await _attachmentService.UploadAttachment(vm);
-                }
+                await _attachmentService.UploadAttachment(vm);
             }
-
-            // using (var stream = System.IO.File.OpenRead(filePath))
-            // {
-            //     AttachmentVM vm = new()
-            //     {
-            //         Id = Guid.NewGuid().ToString(),
-            //         File = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name))
-            //     };
-            //     await _attachmentService.UploadAttachment(vm);
-            // }
-
-
 
             return RedirectToAction(nameof(Index));
         }
